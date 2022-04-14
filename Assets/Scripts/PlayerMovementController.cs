@@ -1,15 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
+    [Serializable]
+    public enum MovementOptions { Velocity, AddForce, Transform };
 
     #region Self Variables
 
     #region Private Variables
 
-    private Vector2 inputValues;
+    private Vector3 moveDirections;
     private bool _isReadyToMove;
 
     #endregion
@@ -18,6 +21,7 @@ public class PlayerMovementController : MonoBehaviour
 
     [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private float speed;
+    [SerializeField] private MovementOptions movementOptions;
 
     #endregion
 
@@ -25,8 +29,22 @@ public class PlayerMovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_isReadyToMove) MovePlayer();
-        else StopPlayer();
+        if (_isReadyToMove)
+        {
+            switch (movementOptions)
+            {
+                case MovementOptions.Velocity:
+                    MovePlayerVelocity();
+                    break;
+                case MovementOptions.AddForce:
+                    MovePlayerAddForce();
+                    break;
+                case MovementOptions.Transform:
+                    MovePlayerTransform();
+                    break;
+            };
+        }     
+         else StopPlayerVelocity();
     }
 
     public void SetMovementAvailable()
@@ -39,21 +57,41 @@ public class PlayerMovementController : MonoBehaviour
         _isReadyToMove = false;
     }
 
-    public void UpdateInputData(Vector2 inputValue)
+    public void UpdateInputData(Vector3 moveDirection)
     {
-        inputValues = inputValue;
+        moveDirections = moveDirection;
     }
 
-    private void MovePlayer()
+    #region Velocity Movement
+
+    private void MovePlayerVelocity()
     {
-        rigidbody.velocity = new Vector3(inputValues.x * speed, rigidbody.velocity.y, inputValues.y * speed);
+        rigidbody.velocity = new Vector3(moveDirections.x * speed, rigidbody.velocity.y, moveDirections.z * speed);
     }
 
-    private void StopPlayer()
+    private void StopPlayerVelocity()
     {
         rigidbody.velocity = new Vector3(0, rigidbody.velocity.y, 0);
         rigidbody.angularVelocity = Vector3.zero;
     }
+    #endregion
+
+    #region AddForce Movement
+    private void MovePlayerAddForce()
+    {
+        rigidbody.AddForce(new Vector3(moveDirections.x * 1.5f * speed, 0, moveDirections.z * 1.5f *  speed), ForceMode.Force);
+    }
+
+    #endregion
+
+    #region Transform Movement
+
+    private void MovePlayerTransform()
+    {
+        transform.position += new Vector3(moveDirections.x * 0.025f *speed, 0, moveDirections.z * 0.025f * speed);
+    }
+
+    #endregion
 
     //HOMEWORK 
     //WRITE THIS CODE WITH ADDFORCE

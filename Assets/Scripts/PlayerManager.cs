@@ -9,12 +9,13 @@ public class PlayerManager : MonoBehaviour
     #region Serialized Variables
 
     [SerializeField] private PlayerMovementController movementController;
+    [SerializeField] private CameraController cameraController;
 
     #endregion
 
     #region Private Variables
 
-    private Vector2 inputValue;
+    private Vector3 moveDirection;
 
     #endregion
 
@@ -24,9 +25,9 @@ public class PlayerManager : MonoBehaviour
     {
         if (Input.anyKey)
         {
-            inputValue = InputData;
+            moveDirection = (cameraController.GetCameraRight() * InputData.x) + (cameraController.GetCameraForward() * -InputData.y); 
             movementController.SetMovementAvailable();
-            movementController.UpdateInputData(inputValue);
+            movementController.UpdateInputData(moveDirection);
         }
         else
         {
