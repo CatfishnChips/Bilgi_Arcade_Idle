@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -8,32 +6,57 @@ public class PlayerManager : MonoBehaviour
 
     #region Serialized Variables
 
-    [SerializeField] private PlayerMovementController movementController;
-    [SerializeField] private CameraController cameraController;
-
     #endregion
 
     #region Private Variables
 
-    private Vector3 moveDirection;
+    private PlayerMovementController movementController;
+    private CameraController cameraController; //Should only communicate with cameraManager
+    private PlayerPhysicsController physicsController;
 
     #endregion
 
     #endregion
 
-    private void Update()
+    private void Awake()
     {
-        if (Input.anyKey)
-        {
-            moveDirection = (cameraController.GetCameraRight() * InputData.x) + (cameraController.GetCameraForward() * -InputData.y); 
-            movementController.SetMovementAvailable();
-            movementController.UpdateInputData(moveDirection);
-        }
-        else
-        {
-            movementController.SetMovementUnAvailable();
-        }
+        movementController = GetComponent<PlayerMovementController>();
+        cameraController = GetComponent<CameraController>();
+        physicsController = GetComponentInChildren<PlayerPhysicsController>();
     }
 
-    private Vector2 InputData => new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+    private void OnEnable()
+    {
+        AssignEvents();
+    }
+
+    private void OnDisable()
+    {
+        UnAssignEvents();
+    }
+    
+    private void AssignEvents()
+    {
+        EventManager.Instance.onInputDragged += OnInputDragged;
+        EventManager.Instance.onInputReleased += OnInputReleased;
+    }
+
+    private void UnAssignEvents()
+    {
+        EventManager.Instance.onInputDragged -= OnInputDragged;
+        EventManager.Instance.onInputReleased -= OnInputReleased;
+    }
+
+    private void OnInputDragged(Vector2 inputParameters)
+    {
+        movementController.SetMovementAvailable();
+        Vector3 moveDirection = (cameraController.GetCameraRight() * inputParameters.x) + (cameraController.GetCameraForward() * -inputParameters.y);
+        movementController.UpdateInputData(moveDirection);
+
+    }
+
+    private void OnInputReleased()
+    {
+        movementController.SetMovementUnAvailable();
+    }
 }

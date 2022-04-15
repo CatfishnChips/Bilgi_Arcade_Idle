@@ -1,18 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    [Serializable]
-    public enum MovementOptions { Velocity, AddForce, Transform };
-
     #region Self Variables
 
     #region Private Variables
 
-    private Vector3 moveDirections;
+    private Vector3 _moveDirections;
     private bool _isReadyToMove;
 
     #endregion
@@ -20,8 +15,8 @@ public class PlayerMovementController : MonoBehaviour
     #region Serialized Variables
 
     [SerializeField] private Rigidbody rigidbody;
-    [SerializeField] private float speed;
-    [SerializeField] private MovementOptions movementOptions;
+    [SerializeField] private float _speed;
+    [SerializeField] private MovementTypes movementOptions;
 
     #endregion
 
@@ -33,13 +28,13 @@ public class PlayerMovementController : MonoBehaviour
         {
             switch (movementOptions)
             {
-                case MovementOptions.Velocity:
+                case MovementTypes.Velocity:
                     MovePlayerVelocity();
                     break;
-                case MovementOptions.AddForce:
+                case MovementTypes.AddForce:
                     MovePlayerAddForce();
                     break;
-                case MovementOptions.Transform:
+                case MovementTypes.Transform:
                     MovePlayerTransform();
                     break;
             };
@@ -59,14 +54,14 @@ public class PlayerMovementController : MonoBehaviour
 
     public void UpdateInputData(Vector3 moveDirection)
     {
-        moveDirections = moveDirection;
+        _moveDirections = moveDirection;
     }
 
     #region Velocity Movement
 
     private void MovePlayerVelocity()
     {
-        rigidbody.velocity = new Vector3(moveDirections.x * speed, rigidbody.velocity.y, moveDirections.z * speed);
+        rigidbody.velocity = new Vector3(_moveDirections.x * _speed, rigidbody.velocity.y, _moveDirections.z * _speed);
     }
 
     private void StopPlayerVelocity()
@@ -79,7 +74,7 @@ public class PlayerMovementController : MonoBehaviour
     #region AddForce Movement
     private void MovePlayerAddForce()
     {
-        rigidbody.AddForce(new Vector3(moveDirections.x * 1.5f * speed, 0, moveDirections.z * 1.5f *  speed), ForceMode.Force);
+        rigidbody.AddForce(new Vector3(_moveDirections.x * 1.5f * _speed, 0, _moveDirections.z * 1.5f *  _speed), ForceMode.Force);
     }
 
     #endregion
@@ -88,14 +83,8 @@ public class PlayerMovementController : MonoBehaviour
 
     private void MovePlayerTransform()
     {
-        transform.position += new Vector3(moveDirections.x * 0.025f *speed, 0, moveDirections.z * 0.025f * speed);
+        transform.position += new Vector3(_moveDirections.x * 0.025f *_speed, 0, _moveDirections.z * 0.025f * _speed);
     }
 
     #endregion
-
-    //HOMEWORK 
-    //WRITE THIS CODE WITH ADDFORCE
-    //WRITE THIS CODE WITH BY CHANGING TRANSFORM
-    //USE GITHUB
-
 }
