@@ -250,7 +250,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2798557919655010751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70be37e940241434cb5e1e913e04ba4b, type: 3}
+  m_Script: {fileID: 11500000, guid: 8521e7c28f480604faecae677021f37f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2798557919655010749
@@ -262,11 +262,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2798557919655010751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5d8a93e0b73fbd4592060ce84b3b1ac, type: 3}
+  m_Script: {fileID: 11500000, guid: d7097fb1966fbff4b899cd6b2023fe24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 2798557919655010744}
-  speed: 6
+  _speed: 10
   movementOptions: 0
 --- !u!114 &2798557919655010743
 MonoBehaviour:
@@ -277,10 +277,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2798557919655010751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef67a5081033a4d4ea756467c33945d2, type: 3}
+  m_Script: {fileID: 11500000, guid: 851ccf29ecf7d04468cd02634e59ce60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 1
+  Cameras:
+  - {fileID: 0}
+  cameraPitch: 1
+  cameraRadius: 10
+  angle: 0
 --- !u!114 &2798557919655010742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,14 +294,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2798557919655010751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a52b138dba9ae749a2f128b9b926cb6, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ab615a43231c2e49b1cc18f6191a267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cameras:
-  - {fileID: 0}
-  cameraPitch: 1
-  cameraRadius: 10
-  angle: 0
+  sensitivity: 1
 --- !u!1 &2798557920181183750
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +339,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2798557920181183750}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5785f4e78defc6a4f9e4f8b7af41cfea, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e4c1ac5279d0124c87043c8212ceec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerManager: {fileID: 2798557919655010746}
