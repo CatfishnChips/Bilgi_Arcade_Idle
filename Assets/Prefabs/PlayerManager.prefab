@@ -250,7 +250,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2798557919655010751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8521e7c28f480604faecae677021f37f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7bfcaef4c388a40458640f0fd3732537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2798557919655010749
@@ -262,11 +262,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2798557919655010751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7097fb1966fbff4b899cd6b2023fe24, type: 3}
+  m_Script: {fileID: 11500000, guid: 23cc46ae6830a964583044d3f120dd60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 2798557919655010744}
-  _speed: 10
+  rigidbody: {fileID: 0}
+  _speed: 0
   movementOptions: 0
 --- !u!114 &2798557919655010743
 MonoBehaviour:
@@ -277,13 +277,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2798557919655010751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 851ccf29ecf7d04468cd02634e59ce60, type: 3}
+  m_Script: {fileID: 11500000, guid: ccb9139a1330ebb40aa99d8542cc5c75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cameras:
-  - {fileID: 0}
-  cameraPitch: 1
-  cameraRadius: 10
+  Cameras: []
+  cameraPitch: 0
+  cameraRadius: 0
   angle: 0
 --- !u!114 &2798557919655010742
 MonoBehaviour:
@@ -294,10 +293,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2798557919655010751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ab615a43231c2e49b1cc18f6191a267, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f36b97bbc9562b4eae3fb8233755a3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 1
+  sensitivity: 0
 --- !u!1 &2798557920181183750
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,9 +338,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2798557920181183750}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e4c1ac5279d0124c87043c8212ceec1, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c2b84d11cbbf3e4ea23e008234454ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 2798557919655010746}
-  rigidbody: {fileID: 8165496193231327194}
-  collider: {fileID: 2798557919186237645}
+  playerManager: {fileID: 0}
+  rigidbody: {fileID: 0}
+  collider: {fileID: 0}
