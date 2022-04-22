@@ -265,8 +265,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23cc46ae6830a964583044d3f120dd60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 0}
-  _speed: 0
+  rigidbody: {fileID: 2798557919655010744}
+  _speed: 10
   movementOptions: 0
 --- !u!114 &2798557919655010743
 MonoBehaviour:
@@ -280,9 +280,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccb9139a1330ebb40aa99d8542cc5c75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cameras: []
-  cameraPitch: 0
-  cameraRadius: 0
+  Cameras:
+  - {fileID: 0}
+  cameraPitch: 1
+  cameraRadius: 10
   angle: 0
 --- !u!114 &2798557919655010742
 MonoBehaviour:
@@ -296,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f36b97bbc9562b4eae3fb8233755a3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 0
+  sensitivity: 1
 --- !u!1 &2798557920181183750
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,6 +342,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2b84d11cbbf3e4ea23e008234454ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 0}
-  rigidbody: {fileID: 0}
-  collider: {fileID: 0}
+  playerManager: {fileID: 2798557919655010746}
+  rigidbody: {fileID: 8165496193231327194}
+  collider: {fileID: 2798557919186237645}
