@@ -18,7 +18,6 @@ public class PlayerPhysicsController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
         if (other.CompareTag("Obstacle"))
         {
             other.gameObject.SetActive(false);
