@@ -22,8 +22,11 @@ public class EventManager : MonoBehaviour
 
     #region UnityEvents
 
-    public UnityAction<Vector2> onInputDragged = delegate { };
+    public UnityAction<HorizontalInputParams> onInputDragged = delegate { };
     public UnityAction onInputReleased = delegate { };
+
+    public UnityAction onReset = delegate { };
+    public UnityAction onPlay = delegate { };
 
     // ALTERNATIVE, WE DO NOT NEED TO CREATE AN EMPTY DELEGATE
     //public UnityAction<Vector2> onInputDragged = (Vector2 vector2) => { };
