@@ -17,6 +17,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private float _speed;
     [SerializeField] private MovementTypes movementOptions;
+    [SerializeField] private Transform _mesh;
 
     #endregion
 
@@ -29,7 +30,7 @@ public class PlayerMovementController : MonoBehaviour
             switch (movementOptions)
             {
                 case MovementTypes.Velocity:
-                    MovePlayerVelocity();
+                    MovePlayerVelocity();                  
                     break;
                 case MovementTypes.AddForce:
                     MovePlayerAddForce();
@@ -38,8 +39,14 @@ public class PlayerMovementController : MonoBehaviour
                     MovePlayerTransform();
                     break;
             };
+            RotateMesh();
         }     
          else StopPlayerVelocity();
+    }
+
+    private void RotateMesh() 
+    {
+        _mesh.forward = _moveDirections;
     }
 
     public void SetMovementAvailable()

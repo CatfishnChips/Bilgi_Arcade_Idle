@@ -4,7 +4,7 @@ using UnityEngine;
 
 public struct HorizontalInputParams
 {
-    public float HorizontalInputValue;
+    public Vector2 HorizontalInputValue;
     public float HorizontalInputClampPositiveSide;
     public float HorizontalInputClampNegativeSide;
 }

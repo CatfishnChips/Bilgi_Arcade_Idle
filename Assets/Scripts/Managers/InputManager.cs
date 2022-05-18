@@ -17,6 +17,7 @@ public class InputManager : MonoBehaviour
     #region Serialized Variables
 
     [SerializeField] private bool isFirstTimeTouchTaken;
+    [SerializeField] private Joystick joystick;
 
     #endregion
 
@@ -46,6 +47,8 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
+        JoystickInput();
+
         if (!IsAvailableForTouch) return;
 
         if (Input.GetMouseButtonUp(0) && !IsPointerOverUIElement())
@@ -64,6 +67,7 @@ public class InputManager : MonoBehaviour
             }
 
             _mousePosition = Input.mousePosition;
+            Debug.Log(_mousePosition);
         }
 
         if (Input.GetMouseButton(0) && !IsPointerOverUIElement())
@@ -84,7 +88,7 @@ public class InputManager : MonoBehaviour
                     _mousePosition = Input.mousePosition;
 
                     EventManager.Instance.onInputDragged?.Invoke(new HorizontalInputParams() {
-                        HorizontalInputValue = _moveVector.x,
+                        HorizontalInputValue = _moveVector,
                         HorizontalInputClampPositiveSide = InputData.Data.HorizontalInputClampPositiveSide,
                         HorizontalInputClampNegativeSide = InputData.Data.HorizontalInputClampNegativeSide
                     });
@@ -93,23 +97,15 @@ public class InputManager : MonoBehaviour
             }
         }
 
-        //if (Input.anyKey)
-        //{
-        //    EventManager.Instance.onInputDragged?.Invoke(InputData);
-        //}
-        //else
-        //{
-        //    EventManager.Instance.onInputReleased?.Invoke();
-        //}
     }
 
     public bool IsPointerOverUIElement()
     {
         var eventData = new PointerEventData(EventSystem.current);
         eventData.position = Input.mousePosition;
-        //var results = new List<>
-        //
-        return true;
+        var results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData,results);
+        return results.Count > 0;
     }
 
     private void OnPlay()
@@ -123,5 +119,33 @@ public class InputManager : MonoBehaviour
         isFirstTimeTouchTaken = false;
     }
 
-    //private Vector2 InputData => new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+    private void JoystickInput() 
+    {
+        Vector2 inputValue = joystick.Direction;
+
+        EventManager.Instance.onInputDragged?.Invoke(new HorizontalInputParams() {
+            HorizontalInputValue = inputValue,
+            HorizontalInputClampNegativeSide = InputData.Data.HorizontalInputClampNegativeSide,
+            HorizontalInputClampPositiveSide = InputData.Data.HorizontalInputClampPositiveSide
+        });
+
+        if (inputValue != Vector2.zero) 
+        {
+            _isTouching = true;
+            if (!isFirstTimeTouchTaken)
+            EventManager.Instance.onInputTaken?.Invoke();
+            isFirstTimeTouchTaken = true;
+        }
+
+        if (inputValue == Vector2.zero) 
+        {
+            if (!isFirstTimeTouchTaken) return;
+
+            _isTouching = false;
+            EventManager.Instance.onInputReleased?.Invoke();
+            isFirstTimeTouchTaken = false;
+        }
+
+        //Debug.Log("Joystick Direction: " + joystick.Direction + " Joystick Horizontal: " + joystick.Horizontal + " Joystick Vertical: " + joystick.Vertical);
+    }
 }

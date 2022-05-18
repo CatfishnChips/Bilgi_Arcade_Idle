@@ -24,6 +24,7 @@ public class EventManager : MonoBehaviour
 
     public UnityAction<HorizontalInputParams> onInputDragged = delegate { };
     public UnityAction onInputReleased = delegate { };
+    public UnityAction onInputTaken;
 
     public UnityAction onReset = delegate { };
     public UnityAction onPlay = delegate { };
