@@ -9,7 +9,13 @@ public class AnimationController : MonoBehaviour
 
     #region Serizalized Variables
 
+    [Header("Manager")] [SerializeField] private PlayerManager manager;
+    [Space]
     [SerializeField] private Animator animator;
+
+    #endregion
+
+    #region Private Variables
 
     #endregion
 
@@ -29,5 +35,15 @@ public class AnimationController : MonoBehaviour
     {
         float distance = Mathf.Sqrt(Mathf.Pow((direction.x), 2) + Mathf.Pow((direction.z), 2));
         animator.SetFloat("WalkMultiplier", distance);
+    }
+
+    public void SetAnimationStateToWalk()
+    {
+        //animator.SetTrigger(Walk);
+    }
+
+    public void SetAnimationStateToIdle()
+    {
+        //animator.SetTrigger(Idle);
     }
 }

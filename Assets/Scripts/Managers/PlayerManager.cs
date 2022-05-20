@@ -63,10 +63,14 @@ public class PlayerManager : MonoBehaviour
     {
         animationController.ChangeWalkingState(true);
         movementController.SetMovementAvailable();
+
+        //animationController.SetAnimationStateToWalk();
     }
 
     private void OnInputReleased()
     {
+        //animationController.SetAnimationStateToIdle();
+
         animationController.ChangeWalkingState(false);
         movementController.SetMovementUnAvailable();
     }
