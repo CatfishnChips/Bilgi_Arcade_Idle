@@ -24,11 +24,6 @@ public class CameraManager : MonoBehaviour
 
     #region Event Subscriptions
 
-    private void OnEnable()
-    {
-        SubscribeEvents();
-    }
-
     private void OnDisable()
     {
         UnSubscribeEvents();
@@ -48,6 +43,7 @@ public class CameraManager : MonoBehaviour
 
     private void Start()
     {
+        SubscribeEvents();
         playerManager = FindObjectOfType<PlayerManager>().transform;
     }
 

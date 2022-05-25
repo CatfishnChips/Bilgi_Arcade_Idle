@@ -22,7 +22,7 @@ public class EventManager : MonoBehaviour
 
     #region UnityEvents
 
-    public UnityAction<HorizontalInputParams> onInputDragged = delegate { };
+    public UnityAction<JoystickInputParams> onInputDragged = delegate { };
     public UnityAction onInputReleased = delegate { };
     public UnityAction onInputTaken;
 

@@ -7,7 +7,7 @@ public class PlayerMovementController : MonoBehaviour
 
     #region Private Variables
 
-    private Vector3 _moveDirections;
+    private Vector3 _inputValues;
     private bool _isReadyToMove;
 
     #endregion
@@ -39,14 +39,17 @@ public class PlayerMovementController : MonoBehaviour
                     MovePlayerTransform();
                     break;
             };
-            RotateMesh();
+            RotatePlayer();
         }     
          else StopPlayerVelocity();
     }
 
-    private void RotateMesh() 
+    private void RotatePlayer()
     {
-        _mesh.forward = _moveDirections;
+        var moveDirection = new Vector3(_inputValues.x,
+            0,
+            _inputValues.y);
+        rigidbody.MoveRotation(Quaternion.LookRotation(moveDirection, Vector3.up));
     }
 
     public void SetMovementAvailable()
@@ -59,16 +62,16 @@ public class PlayerMovementController : MonoBehaviour
         _isReadyToMove = false;
     }
 
-    public void UpdateInputData(Vector3 moveDirection)
+    public void UpdateInputData(JoystickInputParams inputValue)
     {
-        _moveDirections = moveDirection;
+        _inputValues = new Vector2(inputValue.HorizontalInputValue, inputValue.VerticalInputValue);
     }
 
     #region Velocity Movement
 
     private void MovePlayerVelocity()
     {
-        rigidbody.velocity = new Vector3(_moveDirections.x * _speed, rigidbody.velocity.y, _moveDirections.z * _speed);
+        rigidbody.velocity = new Vector3(_inputValues.x * _speed, rigidbody.velocity.y, _inputValues.y * _speed);
     }
 
     private void StopPlayerVelocity()
@@ -81,7 +84,7 @@ public class PlayerMovementController : MonoBehaviour
     #region AddForce Movement
     private void MovePlayerAddForce()
     {
-        rigidbody.AddForce(new Vector3(_moveDirections.x * 1.5f * _speed, 0, _moveDirections.z * 1.5f *  _speed), ForceMode.Force);
+        rigidbody.AddForce(new Vector3(_inputValues.x * 1.5f * _speed, 0, _inputValues.z * 1.5f *  _speed), ForceMode.Force);
     }
 
     #endregion
@@ -90,7 +93,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void MovePlayerTransform()
     {
-        transform.position += new Vector3(_moveDirections.x * 0.025f *_speed, 0, _moveDirections.z * 0.025f * _speed);
+        transform.position += new Vector3(_inputValues.x * 0.025f *_speed, 0, _inputValues.z * 0.025f * _speed);
     }
 
     #endregion

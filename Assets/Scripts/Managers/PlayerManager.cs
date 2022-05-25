@@ -51,27 +51,23 @@ public class PlayerManager : MonoBehaviour
         EventManager.Instance.onInputReleased -= OnInputReleased;
     }
 
-    private void OnInputDragged(HorizontalInputParams inputParameters)
+    private void OnInputDragged(JoystickInputParams inputParameters)
     {  
-        Vector3 moveDirection = (cameraController.GetCameraRight() * inputParameters.HorizontalInputValue.x) + (cameraController.GetCameraForward() * -inputParameters.HorizontalInputValue.y);
-        movementController.UpdateInputData(moveDirection);
-        animationController.ChangeWalkingMultiplier(moveDirection);
+        //Vector3 moveDirection = (cameraController.GetCameraRight() * inputParameters.HorizontalInputValue.x) + (cameraController.GetCameraForward() * -inputParameters.HorizontalInputValue.y);
+        movementController.UpdateInputData(inputParameters);
+        movementController.SetMovementAvailable();
+        //animationController.ChangeWalkingMultiplier(moveDirection);
 
     }
 
     private void OnInputTaken() 
     {
-        animationController.ChangeWalkingState(true);
-        movementController.SetMovementAvailable();
-
-        //animationController.SetAnimationStateToWalk();
+        animationController.SetAnimationStateToWalk();
     }
 
     private void OnInputReleased()
     {
-        //animationController.SetAnimationStateToIdle();
-
-        animationController.ChangeWalkingState(false);
+        animationController.SetAnimationStateToIdle();
         movementController.SetMovementUnAvailable();
     }
 }
