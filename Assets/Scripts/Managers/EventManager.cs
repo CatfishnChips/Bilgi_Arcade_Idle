@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using Assets.Scripts.Keys;
 
 public class EventManager : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class EventManager : MonoBehaviour
     public UnityAction onClearActiveLevel = delegate { };
     public UnityAction onNextLevel = delegate { };
     public UnityAction onRestartLevel = delegate { };
-    public UnityAction onSaveGameData = delegate { };
+    public UnityAction<GameSaveDataParams> onSaveGameData = delegate { };
 
     // ALTERNATIVE, WE DO NOT NEED TO CREATE AN EMPTY DELEGATE
     //public UnityAction<Vector2> onInputDragged = (Vector2 vector2) => { };

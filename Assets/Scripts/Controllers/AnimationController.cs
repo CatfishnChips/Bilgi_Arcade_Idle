@@ -67,6 +67,12 @@ public class AnimationController : MonoBehaviour
                     animator.SetBool(Cut, false);
                     break;
                 }
+            case AnimationStates.Walk:
+                {
+                    animator.SetTrigger("Idle");
+                    break;
+                }
+
         }
     }
 }

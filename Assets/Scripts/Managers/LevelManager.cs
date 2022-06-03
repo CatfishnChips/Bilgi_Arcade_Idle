@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using Assets.Scripts.Keys;
 
 public class LevelManager : MonoBehaviour
 {
@@ -70,20 +71,20 @@ public class LevelManager : MonoBehaviour
         LevelID++;
         EventManager.Instance.onClearActiveLevel?.Invoke();
         DOVirtual.DelayedCall(.1f, () => EventManager.Instance.onLevelInitialize?.Invoke(GetLevelID()));
-        //EventManager.Instance.onSaveGameData?.Invoke(new GameSaveDataParams()
-        //{
-        //    Level = LevelID
-        //});
+        EventManager.Instance.onSaveGameData?.Invoke(new GameSaveDataParams()
+        {
+            Level = LevelID
+        });
     }
 
     private void OnRestartLevel()
     {
         EventManager.Instance.onClearActiveLevel?.Invoke();
         DOVirtual.DelayedCall(.1f, () => EventManager.Instance.onLevelInitialize?.Invoke(GetLevelID()));
-        //EventManager.Instance.onSaveGameData?.Invoke(new GameSaveDataParams()
-        //{
-        //    Level = LevelID
-        //});
+        EventManager.Instance.onSaveGameData?.Invoke(new GameSaveDataParams()
+        {
+            Level = LevelID
+        });
     }
 
     private void OnLevelInitialize(int levelID)
