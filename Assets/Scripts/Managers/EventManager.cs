@@ -29,6 +29,12 @@ public class EventManager : MonoBehaviour
     public UnityAction onReset = delegate { };
     public UnityAction onPlay = delegate { };
 
+    public UnityAction<int> onLevelInitialize = delegate { };
+    public UnityAction onClearActiveLevel = delegate { };
+    public UnityAction onNextLevel = delegate { };
+    public UnityAction onRestartLevel = delegate { };
+    public UnityAction onSaveGameData = delegate { };
+
     // ALTERNATIVE, WE DO NOT NEED TO CREATE AN EMPTY DELEGATE
     //public UnityAction<Vector2> onInputDragged = (Vector2 vector2) => { };
     //public UnityAction onInputReleased = () => { };

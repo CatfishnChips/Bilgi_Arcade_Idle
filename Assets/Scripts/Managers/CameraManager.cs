@@ -44,11 +44,11 @@ public class CameraManager : MonoBehaviour
     private void Start()
     {
         SubscribeEvents();
-        playerManager = FindObjectOfType<PlayerManager>().transform;
     }
 
     private void OnAssignCameraTarget()
     {
+        playerManager = FindObjectOfType<PlayerManager>().transform;
         virtualCamera.Follow = playerManager;
         virtualCamera.LookAt = playerManager;
     }

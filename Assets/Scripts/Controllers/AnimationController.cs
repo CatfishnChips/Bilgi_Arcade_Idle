@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.Enums;
 
 public class AnimationController : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class AnimationController : MonoBehaviour
     #endregion
 
     #region Private Variables
+
+    private const string Walk = "Walk";
+    private const string Idle = "Idle";
+    private const string Cut = "Cut";
 
     #endregion
 
@@ -44,5 +49,24 @@ public class AnimationController : MonoBehaviour
     public void SetAnimationStateToIdle()
     {
         animator.SetTrigger("Idle");
+    }
+
+    public void ChangeAnimationState(AnimationStates states)
+    {
+        switch (states)
+        {
+            case AnimationStates.Cut:
+                {
+                    animator.SetBool(Cut, true);
+                    break;
+
+                }
+            case AnimationStates.Idle:
+                {
+                    animator.SetTrigger(Idle);
+                    animator.SetBool(Cut, false);
+                    break;
+                }
+        }
     }
 }

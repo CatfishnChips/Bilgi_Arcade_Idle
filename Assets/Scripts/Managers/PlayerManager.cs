@@ -1,4 +1,7 @@
 using UnityEngine;
+using Assets.Scripts.Enums;
+using DG.Tweening;
+//using RayFire;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -70,4 +73,14 @@ public class PlayerManager : MonoBehaviour
         animationController.SetAnimationStateToIdle();
         movementController.SetMovementUnAvailable();
     }
+
+    public void ChangeAnimationState(AnimationStates states)
+    {
+        animationController.ChangeAnimationState(states);
+    }
+
+    //public void CutCuttable(RayfireRigid rigid)
+    //{
+    //    rigid.ApplyDamage(15, new Vector3(rigid.transform.position.x, 0, rigid.transform.position.z), 5);
+    //}
 }
