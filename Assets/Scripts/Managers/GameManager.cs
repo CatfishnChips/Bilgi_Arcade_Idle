@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Enums;
+using Assets.Scripts.Keys;
 
 namespace Scripts.Assets.Managers
 {
@@ -37,6 +38,31 @@ namespace Scripts.Assets.Managers
         #endregion
 
         #endregion
+
+          private void Start()
+        {
+            EventManager.Instance.onSaveGameData += OnSaveGameData;
+            EventManager.Instance.onUpdateGameState += OnUpdateGameState;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.Instance.onSaveGameData -= OnSaveGameData;
+            EventManager.Instance.onUpdateGameState -= OnUpdateGameState;
+        }
+
+        private void OnUpdateGameState(GameStates newState)
+        {
+            state = newState;
+        }
+
+        private void OnSaveGameData(GameSaveDataParams saveData)
+        {
+            //ES3.Save("Level", saveData.Level);
+            //ES3.Save("Coin", saveData.Coin);
+            //ES3.Save("Haptic", saveData.Haptic);
+            //ES3.Save("SFX", saveData.SFX);
+        }
 
     }
 }

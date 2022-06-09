@@ -30,25 +30,9 @@ public class AnimationController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
-    // public void ChangeWalkingState(bool state) 
-    // {
-    //     animator.SetBool("Walking", state);
-    // }
-
-    // public void ChangeWalkingMultiplier(Vector3 direction) 
-    // {
-    //     float distance = Mathf.Sqrt(Mathf.Pow((direction.x), 2) + Mathf.Pow((direction.z), 2));
-    //     animator.SetFloat("WalkMultiplier", distance);
-    // }
-
-    public void SetAnimationStateToWalk()
+    public void DisableAnimatorCuttingState()
     {
-        animator.SetTrigger("Walking");
-    }
-
-    public void SetAnimationStateToIdle()
-    {
-        animator.SetTrigger("Idle");
+        animator.SetBool(Cut, false);
     }
 
     public void ChangeAnimationState(AnimationStates states)
@@ -64,12 +48,11 @@ public class AnimationController : MonoBehaviour
             case AnimationStates.Idle:
                 {
                     animator.SetTrigger(Idle);
-                    animator.SetBool(Cut, false);
                     break;
                 }
             case AnimationStates.Walk:
                 {
-                    animator.SetTrigger("Idle");
+                    animator.SetTrigger(Walk);
                     break;
                 }
 

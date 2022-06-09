@@ -1,60 +1,84 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.Enums;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
 
-    #region Self Variable
+    #region Self Variables
+
 
     #region Serialized Variables
 
-    [SerializeField] private GameObject StartPanel, ControlPanel, panel3, panel4;
+
+    [SerializeField] private GameObject startPanel, winPanel, failPanel, joystickPanel;
+    [SerializeField] private TextMeshProUGUI woodText, stoneText, goldText;
 
     #endregion
 
     #endregion
-
 
     #region Event Subscription
-
     private void Start()
     {
         SubscribeEvents();
     }
 
-    private void OnDisable()
-    {
-        UnSubscribeEvents();
-    }
-
-    private void UnSubscribeEvents()
-    {
-        EventManager.Instance.onPlay -= OnOpenControlPanel;
-        EventManager.Instance.onPlay -= OnCloseStartPanel;
-    }
-
     private void SubscribeEvents()
     {
-        EventManager.Instance.onPlay += OnOpenControlPanel;
+        EventManager.Instance.onPlay += OnOpenJoystickPanel;
         EventManager.Instance.onPlay += OnCloseStartPanel;
+        EventManager.Instance.onUpdateUICollectableType += OnUpdateCollectableType;
+    }
+
+    private void UnsubscribeEvents()
+    {
+        EventManager.Instance.onPlay -= OnOpenJoystickPanel;
+        EventManager.Instance.onPlay -= OnCloseStartPanel;
+        EventManager.Instance.onUpdateUICollectableType -= OnUpdateCollectableType;
+    }
+
+    private void OnDisable()
+    {
+        UnsubscribeEvents();
+    }
+    #endregion
+
+    private void OnOpenJoystickPanel()
+    {
+        joystickPanel.SetActive(true);
     }
 
     private void OnCloseStartPanel()
     {
-        StartPanel.SetActive(false);
-    }
-
-    #endregion
-
-    private void OnOpenControlPanel()
-    {
-        ControlPanel.SetActive(true);
+        startPanel.SetActive(false);
     }
 
     public void Play()
     {
         EventManager.Instance.onPlay?.Invoke();
+    }
+
+    public void OnUpdateCollectableType(CollectableTypes type, int value)
+    {
+        switch (type)
+        {
+            case CollectableTypes.Wood:
+                {
+                    woodText.text = value.ToString();
+                    break;
+                }
+            case CollectableTypes.Stone:
+                {
+                    stoneText.text = value.ToString();
+                    break;
+                }
+            case CollectableTypes.Gold:
+                {
+                    goldText.text = value.ToString();
+                    break;
+                }
+        }
     }
 }

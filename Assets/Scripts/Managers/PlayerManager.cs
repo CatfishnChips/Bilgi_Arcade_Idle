@@ -40,41 +40,42 @@ public class PlayerManager : MonoBehaviour
         UnAssignEvents();
     }
     
-    private void AssignEvents()
+   private void AssignEvents()
     {
-        EventManager.Instance.onInputDragged += OnInputDragged;
         EventManager.Instance.onInputTaken += OnInputTaken;
+        EventManager.Instance.onInputDragged += OnInputDragged;
         EventManager.Instance.onInputReleased += OnInputReleased;
     }
 
+
+
     private void UnAssignEvents()
     {
-        EventManager.Instance.onInputDragged -= OnInputDragged;
         EventManager.Instance.onInputTaken -= OnInputTaken;
+        EventManager.Instance.onInputDragged -= OnInputDragged;
         EventManager.Instance.onInputReleased -= OnInputReleased;
     }
 
-    private void OnInputDragged(JoystickInputParams inputParameters)
-    {  
-        //Vector3 moveDirection = (cameraController.GetCameraRight() * inputParameters.HorizontalInputValue.x) + (cameraController.GetCameraForward() * -inputParameters.HorizontalInputValue.y);
-        movementController.UpdateInputData(inputParameters);
-        movementController.SetMovementAvailable();
-        //animationController.ChangeWalkingMultiplier(moveDirection);
-
+    private void OnInputTaken()
+    {
+        animationController.ChangeAnimationState(AnimationStates.Walk);
     }
 
-    private void OnInputTaken() 
+    private void OnInputDragged(JoystickInputParams inputParams)
     {
-        animationController.SetAnimationStateToWalk();
+        movementController.SetMovementAvailable();
+        movementController.UpdateInputData(inputParams);
     }
 
     private void OnInputReleased()
     {
-        animationController.SetAnimationStateToIdle();
         movementController.SetMovementUnAvailable();
+        animationController.ChangeAnimationState(AnimationStates.Idle);
     }
 
-    public void ChangeAnimationState(AnimationStates states)
+
+
+    public void ChangeTheAnimationState(AnimationStates states)
     {
         animationController.ChangeAnimationState(states);
     }
@@ -83,4 +84,14 @@ public class PlayerManager : MonoBehaviour
     //{
     //    rigid.ApplyDamage(15, new Vector3(rigid.transform.position.x, 0, rigid.transform.position.z), 5);
     //}
+
+    public void UpdateInGameCurrency(CollectableTypes type, int value)
+    {
+        EventManager.Instance.onUpdateCollectableType?.Invoke(type, value);
+    }
+
+    public void DisableAnimatorCuttingState()
+    {
+        animationController.DisableAnimatorCuttingState();
+    }
 }

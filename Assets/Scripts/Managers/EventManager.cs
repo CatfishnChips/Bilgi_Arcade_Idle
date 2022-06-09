@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using Assets.Scripts.Keys;
+using Assets.Scripts.Enums;
 
 public class EventManager : MonoBehaviour
 {
@@ -30,11 +31,14 @@ public class EventManager : MonoBehaviour
     public UnityAction onReset = delegate { };
     public UnityAction onPlay = delegate { };
 
-    public UnityAction<int> onLevelInitialize = delegate { };
+     public UnityAction<int> onLevelInitialize = delegate { };
     public UnityAction onClearActiveLevel = delegate { };
     public UnityAction onNextLevel = delegate { };
     public UnityAction onRestartLevel = delegate { };
     public UnityAction<GameSaveDataParams> onSaveGameData = delegate { };
+    public UnityAction<GameStates> onUpdateGameState = delegate { };
+    public UnityAction<CollectableTypes, int> onUpdateCollectableType = delegate { };
+    public UnityAction<CollectableTypes, int> onUpdateUICollectableType = delegate { };
 
     // ALTERNATIVE, WE DO NOT NEED TO CREATE AN EMPTY DELEGATE
     //public UnityAction<Vector2> onInputDragged = (Vector2 vector2) => { };
