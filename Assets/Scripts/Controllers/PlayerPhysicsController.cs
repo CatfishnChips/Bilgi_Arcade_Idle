@@ -51,6 +51,13 @@ public class PlayerPhysicsController : MonoBehaviour
                 }).OnComplete(() => _isInCuttingState = false);
             }
         }
+
+        if (other.CompareTag("Buyable"))
+        {
+            var data = other.GetComponent<BuyableManager>().BuyableData.Data;
+            var economyParams = EventManager.Instance.onGetEconomyParams?.Invoke();
+
+        }
     }
 
     private void OnTriggerExit(Collider other)

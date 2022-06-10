@@ -40,6 +40,8 @@ public class EventManager : MonoBehaviour
     public UnityAction<CollectableTypes, int> onUpdateCollectableType = delegate { };
     public UnityAction<CollectableTypes, int> onUpdateUICollectableType = delegate { };
 
+    public Func<EconomyManager> onGetEconomyParams;
+
     // ALTERNATIVE, WE DO NOT NEED TO CREATE AN EMPTY DELEGATE
     //public UnityAction<Vector2> onInputDragged = (Vector2 vector2) => { };
     //public UnityAction onInputReleased = () => { };
