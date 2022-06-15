@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: CD_Buyable_PirateShip
   m_EditorClassIdentifier: 
   Data:
-    PrefabReference: {fileID: 0}
-    SpawnPosition: {x: 0, y: 0, z: 0}
-    SpawnRotation: {x: 0, y: 0, z: 0}
-    WoodRequirement: 50
-    StoneRequirement: 15
-    GoldRequirement: 30
+    PrefabReference: {fileID: 9081913887573325599, guid: 83de09ef06b15b647ba29c026b10dbd7, type: 3}
+    SpawnPosition: {x: 59.9, y: -3.07, z: 85.56}
+    SpawnRotation: {x: 0, y: 43.863, z: 0}
+    WoodRequirement: 5
+    StoneRequirement: 5
+    GoldRequirement: 5

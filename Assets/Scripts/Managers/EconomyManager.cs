@@ -1,6 +1,8 @@
 using Assets.Scripts.Enums;
 using Sirenix.OdinInspector;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EconomyManager : MonoBehaviour
@@ -27,7 +29,7 @@ public class EconomyManager : MonoBehaviour
 
     #region Public Variables
 
-    public CollectableTypes Types;
+    CollectableTypes Types;
 
     #endregion
 
@@ -36,7 +38,6 @@ public class EconomyManager : MonoBehaviour
     #endregion
 
     #region Private Variables
-
     [ShowInInspector] private int _wood, _gold, _stone;
 
     #endregion
@@ -88,5 +89,13 @@ public class EconomyManager : MonoBehaviour
                     break;
                 }
         }
+    }
+
+    public void GetResources(out int wood, out int stone, out int gold)
+    {
+         wood = _wood;
+         stone = _stone;
+         gold = _gold;
+
     }
 }

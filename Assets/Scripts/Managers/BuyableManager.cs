@@ -9,7 +9,8 @@ public class BuyableManager : MonoBehaviour
 
     #region Serialized Variables
 
-    public CD_Buyable BuyableData;
+    //public CD_Buyable BuyableData;
+    public BuyableScriptable BuyableData;
 
     #endregion
 
