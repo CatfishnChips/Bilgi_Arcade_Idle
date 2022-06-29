@@ -27,6 +27,7 @@ public class EventManager : MonoBehaviour
     public UnityAction<JoystickInputParams> onInputDragged = delegate { };
     public UnityAction onInputReleased = delegate { };
     public UnityAction onInputTaken;
+    public UnityAction onAttackInputTaken;
 
     public UnityAction onReset = delegate { };
     public UnityAction onPlay = delegate { };

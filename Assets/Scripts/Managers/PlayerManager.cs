@@ -17,6 +17,7 @@ public class PlayerManager : MonoBehaviour
     private CameraController cameraController; //Should only communicate with cameraManager
     private PlayerPhysicsController physicsController;
     private AnimationController animationController;
+    private PlayerActionController actionController;
 
     #endregion
 
@@ -28,6 +29,7 @@ public class PlayerManager : MonoBehaviour
         cameraController = GetComponent<CameraController>();
         physicsController = GetComponentInChildren<PlayerPhysicsController>();
         animationController = GetComponentInChildren<AnimationController>();
+        actionController = GetComponent<PlayerActionController>();
     }
 
     private void OnEnable()
@@ -45,6 +47,7 @@ public class PlayerManager : MonoBehaviour
         EventManager.Instance.onInputTaken += OnInputTaken;
         EventManager.Instance.onInputDragged += OnInputDragged;
         EventManager.Instance.onInputReleased += OnInputReleased;
+        EventManager.Instance.onAttackInputTaken += OnAttackInputTaken;
     }
 
 
@@ -54,6 +57,7 @@ public class PlayerManager : MonoBehaviour
         EventManager.Instance.onInputTaken -= OnInputTaken;
         EventManager.Instance.onInputDragged -= OnInputDragged;
         EventManager.Instance.onInputReleased -= OnInputReleased;
+        EventManager.Instance.onAttackInputTaken -= OnAttackInputTaken;
     }
 
     private void OnInputTaken()
@@ -73,7 +77,22 @@ public class PlayerManager : MonoBehaviour
         animationController.ChangeAnimationState(AnimationStates.Idle);
     }
 
+    private void OnAttackInputTaken() {
+        actionController.ExecuteAttack();
+        //animationController.ChangeAnimationState(AnimationStates.Attack);
+    }
 
+    private void OnAbility1InputTaken() {
+
+    }
+
+    private void OnAbility2InputTaken() {
+
+    }
+
+    private void OnAbility3InputTaken() {
+
+    }
 
     public void ChangeTheAnimationState(AnimationStates states)
     {

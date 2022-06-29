@@ -17,7 +17,7 @@ public class BuyableScriptable : TriggerStayScriptableBase
         EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Wood, (int)(wood - Data.WoodRequirement));
         EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Stone, (int)(stone - Data.StoneRequirement));
         EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Gold, (int)(gold - Data.GoldRequirement));
-        GameObject obj = Instantiate(Data.PrefabReference, Data.SpawnPosition, Quaternion.Euler(Data.SpawnRotation), other.transform);
+        //GameObject obj = Instantiate(Data.PrefabReference, Data.SpawnPosition, Quaternion.Euler(Data.SpawnRotation), other.transform);
         other.enabled = false;
     }
 }

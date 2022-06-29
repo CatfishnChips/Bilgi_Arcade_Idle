@@ -39,35 +39,59 @@ public class PlayerPhysicsController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        // if (other.CompareTag("Cuttable"))
-        // {
-        //     if (!_isInCuttingState)
-        //     {
-        //         _isInCuttingState = true;
-        //         DOVirtual.DelayedCall(3, () =>
-        //         {
-        //             playerManager.UpdateInGameCurrency(other.GetComponent<CollectableManager>().Type, 3);
-        //             //manager.CutCuttable(other.transform.GetChild(0).transform.GetComponent<RayfireRigid>());
-        //         }).OnComplete(() => _isInCuttingState = false);
-        //     }
-        // }
+         if (other.CompareTag("Cuttable"))
+        {
+            if (!_isInCuttingState)
+            {
+                _isInCuttingState = true;
+                DOVirtual.DelayedCall(3, () =>
+                {
+                    playerManager.UpdateInGameCurrency(other.GetComponent<CollectableManager>().Type, 3);
+                    //manager.CutCuttable(other.transform.GetChild(0).transform.GetComponent<RayfireRigid>());
+                }).OnComplete(() => _isInCuttingState = false);
+            }
+        }
 
-        //  if (other.CompareTag("Buyable"))
-        // {
-        //     var data = other.GetComponent<BuyableManager>().BuyableData.Data;
-        //     //EconomyParams inGameEconomyParams = (EconomyParams)(EventManager.Instance.onGetInGameEconomyParams?.Invoke());
-        //     FindObjectOfType<EconomyManager>().GetResources(out int wood, out int stone, out int gold);
-        //     EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Wood, (int)(wood - data.WoodRequirement));
-        //     EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Stone, (int)(stone - data.StoneRequirement));
-        //     EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Gold, (int)(gold - data.GoldRequirement));
-        //     if (wood < data.WoodRequirement) return;
-        //     if (stone < data.StoneRequirement) return;
-        //     if (gold < data.GoldRequirement) return;
-        //     GameObject obj = Instantiate(data.PrefabReference, data.SpawnPosition, Quaternion.Euler(data.SpawnRotation), other.transform);
+        if (other.CompareTag("Buyable"))
+        {
+            var buyableManager = other.GetComponent<BuyableManager>();
+            var data = other.GetComponent<BuyableManager>().BuyableData;
+            var priceresultWood = data.WoodRequirement - EconomyManager._wood;
+            var priceresultStone = data.StoneRequirement - EconomyManager._stone;
+            var priceresultGold = data.GoldRequirement - EconomyManager._gold;
+            if (priceresultWood <= 0 && priceresultStone <= 0 && priceresultGold <= 0 && !data.IsBought)
+            {
+                Debug.LogWarning(priceresultWood);
+                EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Wood, -(EconomyManager._wood + priceresultWood));
+                EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Stone, -(EconomyManager._stone + priceresultStone));
+                EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Gold, -(EconomyManager._gold + priceresultGold));
+                buyableManager.BuyTheObject();
+            }
+            else { }
 
-        // }
-        if (other.CompareTag("Interactable")) 
-        other.GetComponent<InteractionHolder>().Data.ExecuteFunction(this.gameObject, other);
+
+            if (priceresultWood > 0)
+            {
+                data.WoodRequirement -= EconomyManager._wood;
+                EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Wood, -(EconomyManager._wood + priceresultWood));
+            }
+
+            if (priceresultStone > 0)
+            {
+
+                data.StoneRequirement -= EconomyManager._stone;
+                EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Stone, -(EconomyManager._stone + priceresultStone));
+            }
+
+            if (priceresultGold > 0)
+            {
+
+                data.GoldRequirement -= EconomyManager._stone;
+                EventManager.Instance.onUpdateCollectableType?.Invoke(CollectableTypes.Gold, -(EconomyManager._gold + priceresultGold));
+            }
+        }
+        // if (other.CompareTag("Interactable")) 
+        // other.GetComponent<InteractionHolder>().Data.ExecuteFunction(this.gameObject, other);
     }
 
     private void OnTriggerExit(Collider other)
