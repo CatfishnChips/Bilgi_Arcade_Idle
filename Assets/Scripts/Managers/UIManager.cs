@@ -12,8 +12,9 @@ public class UIManager : MonoBehaviour
     #region Serialized Variables
 
 
-    [SerializeField] private GameObject startPanel, winPanel, failPanel, joystickPanel;
-    [SerializeField] private TextMeshProUGUI woodText, stoneText, goldText;
+    [SerializeField] private GameObject startPanel, winPanel, failPanel, joystickPanel, economyPanel, wavePanel;
+    [SerializeField] private TextMeshProUGUI woodText, stoneText, goldText, timerText, waveText;
+    [SerializeField] private GameObject timerObject;
 
     #endregion
 
@@ -30,6 +31,9 @@ public class UIManager : MonoBehaviour
         EventManager.Instance.onPlay += OnOpenJoystickPanel;
         EventManager.Instance.onPlay += OnCloseStartPanel;
         EventManager.Instance.onUpdateUICollectableType += OnUpdateCollectableType;
+        EventManager.Instance.onWaveEnd += OnWaveEnd;
+        EventManager.Instance.onUpdateTimer += OnUpdateTimer;
+        EventManager.Instance.onWaveStart += OnWaveStart;
     }
 
     private void UnsubscribeEvents()
@@ -37,6 +41,9 @@ public class UIManager : MonoBehaviour
         EventManager.Instance.onPlay -= OnOpenJoystickPanel;
         EventManager.Instance.onPlay -= OnCloseStartPanel;
         EventManager.Instance.onUpdateUICollectableType -= OnUpdateCollectableType;
+        EventManager.Instance.onWaveEnd -= OnWaveEnd;
+        EventManager.Instance.onUpdateTimer -= OnUpdateTimer;
+        EventManager.Instance.onWaveStart -= OnWaveStart;
     }
 
     private void OnDisable()
@@ -53,11 +60,17 @@ public class UIManager : MonoBehaviour
     private void OnCloseStartPanel()
     {
         startPanel.SetActive(false);
+        economyPanel.SetActive(true);
+        wavePanel.SetActive(true);
     }
 
     public void Play()
     {
-        EventManager.Instance.onPlay?.Invoke();
+        EventManager.Instance.onPlay?.Invoke();    
+    }
+
+    public void Skip() {
+        EventManager.Instance.onSkip?.Invoke();
     }
 
     public void OnUpdateCollectableType(CollectableTypes type, int value)
@@ -80,5 +93,20 @@ public class UIManager : MonoBehaviour
                     break;
                 }
         }
+    }
+
+    private void OnWaveEnd() {
+        waveText.enabled = false;
+        timerObject.SetActive(true);
+    }
+
+    private void OnUpdateTimer(int timer) {
+        timerText.text = timer.ToString();
+    }
+
+    private void OnWaveStart(int wave) {
+        waveText.enabled = true;
+        timerObject.SetActive(false);
+        waveText.text = "Wave " + wave;
     }
 }

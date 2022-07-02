@@ -27,12 +27,19 @@ public class EventManager : MonoBehaviour
     public UnityAction<JoystickInputParams> onInputDragged = delegate { };
     public UnityAction onInputReleased = delegate { };
     public UnityAction onInputTaken;
-    public UnityAction onAttackInputTaken;
+    public UnityAction<JoystickInputParams> onAttackInputDragged;
+    public UnityAction onAttackInputReleased;
+    public UnityAction<JoystickInputParams> onAbility1InputDragged;
+    public UnityAction onAbility1InputReleased;
+    public UnityAction<JoystickInputParams> onAbility2InputDragged;
+    public UnityAction onAbility2InputReleased;
+    public UnityAction<JoystickInputParams> onAbility3InputDragged;
+    public UnityAction onAbility3InputReleased;
 
     public UnityAction onReset = delegate { };
     public UnityAction onPlay = delegate { };
 
-     public UnityAction<int> onLevelInitialize = delegate { };
+    public UnityAction<int> onLevelInitialize = delegate { };
     public UnityAction onClearActiveLevel = delegate { };
     public UnityAction onNextLevel = delegate { };
     public UnityAction onRestartLevel = delegate { };
@@ -42,6 +49,13 @@ public class EventManager : MonoBehaviour
     public UnityAction<CollectableTypes, int> onUpdateUICollectableType = delegate { };
 
     public Func<EconomyParams> onGetEconomyParams;
+
+    public UnityAction onWaveEnd = delegate { };
+    public UnityAction<int> onWaveStart = delegate { };
+    public UnityAction<int> onUpdateTimer = delegate { };
+    public UnityAction onSkip = delegate { };
+
+    public UnityAction onPlayerDeath = delegate { };
 
     // ALTERNATIVE, WE DO NOT NEED TO CREATE AN EMPTY DELEGATE
     //public UnityAction<Vector2> onInputDragged = (Vector2 vector2) => { };

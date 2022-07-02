@@ -25,7 +25,7 @@ public class PlayerPhysicsController : MonoBehaviour
 
     #endregion
 
-      private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Obstacle"))
         {

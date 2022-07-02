@@ -8,6 +8,7 @@ TagManager:
   - Cuttable
   - Buyable
   - Interactable
+  - Ground
   layers:
   - Default
   - TransparentFX

@@ -18,6 +18,7 @@ public class PlayerManager : MonoBehaviour
     private PlayerPhysicsController physicsController;
     private AnimationController animationController;
     private PlayerActionController actionController;
+    private PlayerHealthController healthController;
 
     #endregion
 
@@ -29,7 +30,8 @@ public class PlayerManager : MonoBehaviour
         cameraController = GetComponent<CameraController>();
         physicsController = GetComponentInChildren<PlayerPhysicsController>();
         animationController = GetComponentInChildren<AnimationController>();
-        actionController = GetComponent<PlayerActionController>();
+        actionController = GetComponentInChildren<PlayerActionController>();
+        healthController = GetComponent<PlayerHealthController>();
     }
 
     private void OnEnable()
@@ -47,7 +49,18 @@ public class PlayerManager : MonoBehaviour
         EventManager.Instance.onInputTaken += OnInputTaken;
         EventManager.Instance.onInputDragged += OnInputDragged;
         EventManager.Instance.onInputReleased += OnInputReleased;
-        EventManager.Instance.onAttackInputTaken += OnAttackInputTaken;
+
+        EventManager.Instance.onAttackInputDragged += OnAttackInputDragged;
+        EventManager.Instance.onAttackInputReleased += OnAttackInputReleased;
+
+        EventManager.Instance.onAbility1InputDragged += OnAbility1InputDragged;
+        EventManager.Instance.onAbility1InputReleased += OnAbility1InputReleased;
+
+        EventManager.Instance.onAbility2InputDragged += OnAbility2InputDragged;
+        EventManager.Instance.onAbility2InputReleased += OnAbility2InputReleased;
+
+        EventManager.Instance.onAbility3InputDragged += OnAbility3InputDragged;
+        EventManager.Instance.onAbility3InputReleased += OnAbility3InputReleased;
     }
 
 
@@ -57,7 +70,18 @@ public class PlayerManager : MonoBehaviour
         EventManager.Instance.onInputTaken -= OnInputTaken;
         EventManager.Instance.onInputDragged -= OnInputDragged;
         EventManager.Instance.onInputReleased -= OnInputReleased;
-        EventManager.Instance.onAttackInputTaken -= OnAttackInputTaken;
+
+        EventManager.Instance.onAttackInputDragged -= OnAttackInputDragged;
+        EventManager.Instance.onAttackInputReleased -= OnAttackInputReleased;
+
+         EventManager.Instance.onAbility1InputDragged -= OnAbility1InputDragged;
+        EventManager.Instance.onAbility1InputReleased -= OnAbility1InputReleased;
+
+        EventManager.Instance.onAbility2InputDragged -= OnAbility2InputDragged;
+        EventManager.Instance.onAbility2InputReleased -= OnAbility2InputReleased;
+
+        EventManager.Instance.onAbility3InputDragged -= OnAbility3InputDragged;
+        EventManager.Instance.onAbility3InputReleased -= OnAbility3InputReleased;
     }
 
     private void OnInputTaken()
@@ -77,21 +101,34 @@ public class PlayerManager : MonoBehaviour
         animationController.ChangeAnimationState(AnimationStates.Idle);
     }
 
-    private void OnAttackInputTaken() {
+    private void OnAttackInputDragged(JoystickInputParams inputParams) {
+        actionController.AimAttack(inputParams);
+    }
+
+    private void OnAttackInputReleased() {
         actionController.ExecuteAttack();
         //animationController.ChangeAnimationState(AnimationStates.Attack);
     }
-
-    private void OnAbility1InputTaken() {
-
+    private void OnAbility1InputDragged(JoystickInputParams inputParams) {
+        actionController.AimAbility1(inputParams);
     }
 
-    private void OnAbility2InputTaken() {
-
+    private void OnAbility1InputReleased() {
+        actionController.ExecuteAbility1();
+    }
+    private void OnAbility2InputDragged(JoystickInputParams inputParams) {
+        actionController.AimAbility2(inputParams);
     }
 
-    private void OnAbility3InputTaken() {
+    private void OnAbility2InputReleased() {
+        actionController.ExecuteAbility2();
+    }
+    private void OnAbility3InputDragged(JoystickInputParams inputParams) {
+        actionController.AimAbility3(inputParams);
+    }
 
+    private void OnAbility3InputReleased() {
+        actionController.ExecuteAbility3();
     }
 
     public void ChangeTheAnimationState(AnimationStates states)
@@ -112,5 +149,9 @@ public class PlayerManager : MonoBehaviour
     public void DisableAnimatorCuttingState()
     {
         animationController.DisableAnimatorCuttingState();
+    }
+
+    public void HandleDeath() {
+        EventManager.Instance.onPlayerDeath.Invoke();
     }
 }
