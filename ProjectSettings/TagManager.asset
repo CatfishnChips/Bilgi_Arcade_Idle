@@ -9,6 +9,7 @@ TagManager:
   - Buyable
   - Interactable
   - Ground
+  - Enemy
   layers:
   - Default
   - TransparentFX

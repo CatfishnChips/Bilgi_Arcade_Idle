@@ -138,13 +138,17 @@ MonoBehaviour:
   _isActive: 0
   _state: 0
   _speed: 3.5
-  _distance: 5
+  _distance: 6.5
   _timer: 5
   _explosionRadius: 5
   _raycastLayerMask:
     serializedVersion: 2
     m_Bits: 64
   _explosionDamage: 100
+  _knockbackAmount: 1
+  _explosionKnockback: 0
+  _boxCollider: {fileID: 6576642215360772701}
+  _boxTrigger: {fileID: 3273635010857061808}
 --- !u!54 &769328895
 Rigidbody:
   m_ObjectHideFlags: 0

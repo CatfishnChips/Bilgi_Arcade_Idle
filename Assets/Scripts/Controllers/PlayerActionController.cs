@@ -11,12 +11,15 @@ public class PlayerActionController : MonoBehaviour
     [SerializeField] private float _attackStunDuration;
     [SerializeField] private float _attackCooldown;
     [SerializeField] [Range(0, 180)] private float _attackAngle;
+    [SerializeField] private float _maxRainDistance;
     [SerializeField] private ThrowableBarrel _barrelReference;
+    [SerializeField] private CannonRain _cannonReference;
     [SerializeField] private GameObject _bulletReference;
-    [SerializeField] private Transform _indicatorParent;
+    [SerializeField] private Transform _indicatorParent, _movableIndicatorParent;
     [SerializeField] private ParticleSystem _attackIndicator, _abilityIndicator1, _abilityIndicator2, _abilityIndicator3;
     private List<RaycastHit> _rayCastHitList = new List<RaycastHit>();
-    private Vector3 _attackDirection, _ability1Direction, _ability2Direction, _ability3Direction;
+    private Vector3 _attackDirection, _ability1Direction, _ability2Direction, _ability3Direction, _ability1Position;
+    private Vector3 _inputDirection; // Used a shared direction vector since player can only use one skill at once.
     private float _currentAttackCooldown;
     private bool IsAttackReady {
         get {
@@ -27,6 +30,7 @@ public class PlayerActionController : MonoBehaviour
 
     private void Awake() {
         _barrelReference = FindObjectOfType<ThrowableBarrel>();
+        _cannonReference = FindObjectOfType<CannonRain>();
     }
 
     private void Update() {
@@ -112,24 +116,21 @@ public class PlayerActionController : MonoBehaviour
         AttackUsingDirection();
     }
 
-    private void Ability1ClosestEnemy() {
-        _ability1Direction = FindClosestEnemyDirection();
-        if (_ability1Direction == Vector3.zero) return;
-        Ability1UsingDirection();
-    }
-
     public void AimAbility1(JoystickInputParams inputParams) {
         _ability1Direction = new Vector3 (inputParams.DirectionInputValue.x, 0f, inputParams.DirectionInputValue.y);
-        _indicatorParent.forward = _ability1Direction;
+        _ability1Position = _ability1Direction * _maxRainDistance + transform.position;
+        _movableIndicatorParent.transform.position = _ability1Position;
         _abilityIndicator1.Play();
     }
 
-     private void Ability1UsingDirection() {
-
+    private void Ability1UsingDirection() {
+        _cannonReference.SpawnObject(_ability1Position);
     }
 
     public void ExecuteAbility1() {
-        
+        Ability1UsingDirection();
+        _ability3Direction = Vector3.zero;
+        _rayCastHitList.Clear();   
     }
 
     #region Ability #2
